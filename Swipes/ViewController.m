@@ -20,8 +20,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-   
+    UISwipeGestureRecognizer *vertical = [[UISwipeGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(reportVerticalSwipe:)];
+    vertical.direction = UISwipeGestureRecognizerDirectionUp| UISwipeGestureRecognizerDirectionDown;
+    [self.view addGestureRecognizer:vertical];
+    
+    UISwipeGestureRecognizer *horizontal = [[UISwipeGestureRecognizer alloc]
+initWithTarget:self action:@selector(reportHorizontalSwipe:)];
+    horizontal.direction = UISwipeGestureRecognizerDirectionLeft| UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:horizontal];
 }
+    
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -36,6 +46,16 @@
 
 #pragma mark -
 
+- (void)reportHorizontalSwipe:(UIGestureRecognizer *)recognizer {
+    self.label.text = @"Horizontal swipe detected";
+    [self performSelector:@selector(eraseText) withObject:nil afterDelay:2]; }
+
+- (void)reportVerticalSwipe:(UIGestureRecognizer *)recognizer {
+    self.label.text = @"Vertical swipe detected";
+    [self performSelector:@selector(eraseText) withObject:nil afterDelay:2]; }
+
+
+/*
 //В этом методе мы только извлекаем любое касание из совокупности touches и сохраняем его точку.
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
@@ -59,6 +79,6 @@
         //удалаем данные с экрана через 2 секунды
         [self performSelector:@selector(eraseText) withObject:nil afterDelay:2];
     } }
-
+*/
 
 @end
